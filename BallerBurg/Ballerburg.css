@@ -1,0 +1,49 @@
+html body
+
+.headline{
+    text-align:center;
+    font-family: cursive;
+    font-size: x-large;
+    background-color: beige;
+}
+
+#aimkeyboard{
+    position: relative;
+    left: 100px;
+    transform: rotate(90deg);
+    width: 100px;
+    
+}
+
+#powerkeyboard{
+    width: 100px;
+    position: relative;
+    right: 90px;
+}
+
+#aimmouse{
+    position: relative;
+    left: 350px;
+    transform: rotate(90deg);
+    width: 100px;
+
+}
+
+#powermouse{
+    position: relative;
+    left: 325px;
+    width: 100px;
+    
+}
+
+#schoot_keyboard{
+    position: relative;
+    left: 62px;
+    width: 20px;
+}
+#schoot_mouse{
+    position: relative;
+    left: 692px;
+    width: 40px;
+    height: 10px;
+}
