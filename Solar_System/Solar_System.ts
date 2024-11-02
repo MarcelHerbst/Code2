@@ -4,6 +4,7 @@ namespace Solar_System
     export let crc2: CanvasRenderingContext2D;
     window.addEventListener("load", handleLoad);
     const bodies: Body[] = [];
+    let time: number;
 
     function handleLoad(_event: Event): void
     {
@@ -17,24 +18,23 @@ namespace Solar_System
         crc2.canvas.width = window.innerWidth;
         crc2.canvas.height = window.innerHeight;
         crc2.fillStyle = "black";
-        crc2.strokeStyle = "white";
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
-
+        crc2.translate(crc2.canvas.width / 2, crc2.canvas.height / 2);
 
         // Create Sun
-        // bodies.push(new Body());
+        bodies.push(new Body(bodies, 3, 0, new Vector(0, 0, 0), new Vector(0, 0, 0), new Vector(255, 255, 0), "This is the sun!", "Sun"));
 
         // Create Planets
-        // bodies.push(new Planet());
+        bodies.push(new Planet(bodies, 1, 0.01, new Vector(0, 0, 0), new Vector(100, 5, 0), new Vector(255, 0, 255), "This is a planet!", "Planet A", false, []));
 
         // Create Moons
-        // bodies.push(new Moon());
+        bodies.push(new Moon(bodies, 0.4, 0.05, new Vector(0, 0, 0), new Vector(50, 5, 0), new Vector(0, 0, 255), "This is a planet!", "Planet A", "Planet A"));
 
 
         canvas.addEventListener("click", showDesc);
         slider.addEventListener("input", changeTime);
 
-        window.setInterval(update, 30);
+        window.setInterval(update, 1);
     }
 
 
@@ -43,13 +43,15 @@ namespace Solar_System
     {
         console.log("changeTime");
         const slider: HTMLInputElement = <HTMLInputElement>_event.target;
-        const value: number = Number(slider.value);
+        const value: number = Number(slider.value); // 0 - 100
+        time = value;
         console.log(value);
     }
 
     function showDesc(): void
     {
         console.log("showDesc");
+        // delete previous div element
         const htmlBody: HTMLElement | null = document.querySelector("body")!;
         const descBox: HTMLDivElement = <HTMLDivElement>document.createElement("div");
         descBox.id = "desc";
@@ -59,13 +61,18 @@ namespace Solar_System
 
     function update(): void
     {
-        console.log("Update");
+        // console.log("Update");
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height); // Clear Canvas
+        crc2.fillStyle = "black";
 
         for (const body of bodies)
         {
-            // body.move(1 / 50);
-            // body.draw();
+            if (body instanceof Planet)
+            {
+                body.move(time);
+            }
+
+            body.draw();
         }
     }
 

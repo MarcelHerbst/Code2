@@ -3,15 +3,16 @@ namespace Solar_System {
     export class Vector {
         x: number;
         y: number;
-        z?: number;
+        z: number;
 
-        constructor(_x: number, _y: number) {
-            this.set(_x, _y)
+        constructor(_x: number, _y: number, _z: number) {
+            this.set(_x, _y, _z)
         }
 
-        public set(_x: number, _y: number): void {
+        public set(_x: number, _y: number, _z:number): void {
             this.x = _x
             this.y = _y
+            this.z = _z
         }
 
         scale(_factor: number): void {
@@ -28,12 +29,12 @@ namespace Solar_System {
             const length: number = _min + Math.random() * (_max - _min);
             const dir: number = Math.random() * 2 * Math.PI;
 
-            this.set(Math.cos(dir), Math.sin(dir));
+            this.set(Math.cos(dir), Math.sin(dir), Math.tan(dir));
             this.scale(length);
         }
 
         copy(): Vector {
-            return new Vector(this.x, this.y);
+            return new Vector(this.x, this.y, this.z);
         }
 
         mag(): number {
