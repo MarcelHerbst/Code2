@@ -1,6 +1,5 @@
 namespace Solar_System
 {
-
     export class Body
     {
         public planets: Body[];
