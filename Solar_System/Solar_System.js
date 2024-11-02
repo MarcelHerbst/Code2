@@ -19,12 +19,19 @@ var Solar_System;
         // Create Sun
         bodies.push(new Solar_System.Body(bodies, 3, 0, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(255, 255, 0), "This is the sun!", "Sun"));
         // Create Planets
-        bodies.push(new Solar_System.Planet(bodies, 1, 0.01, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(100, 5, 0), new Solar_System.Vector(255, 0, 255), "This is a planet!", "Planet A", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 0.3, 0.05, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(60, 5, 0), new Solar_System.Vector(255, 0, 255), "This is a planet!", "Mercury", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 0.4, 0.04, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(100, 0, 0), new Solar_System.Vector(205, 0, 255), "This is a planet!", "Venus", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 0.5, 0.03, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(140, 0, 0), new Solar_System.Vector(55, 100, 255), "This is a planet!", "Earth", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 0.4, 0.02, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(200, 0, 0), new Solar_System.Vector(255, 0, 55), "This is a planet!", "Mars", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 0.9, 0.01, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(260, 0, 0), new Solar_System.Vector(25, 25, 255), "This is a planet!", "Jupiter", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 1, 0.01, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(320, 0, 0), new Solar_System.Vector(25, 190, 25), "This is a planet!", "Saturn", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 1.2, 0.003, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(380, 0, 0), new Solar_System.Vector(105, 25, 255), "This is a planet!", "Uranus", false, []));
+        bodies.push(new Solar_System.Planet(bodies, 0.6, 0.001, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(440, 0, 0), new Solar_System.Vector(0, 0, 255), "This is a planet!", "Neptune", false, []));
         // Create Moons
-        bodies.push(new Solar_System.Moon(bodies, 0.4, 0.05, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(50, 5, 0), new Solar_System.Vector(0, 0, 255), "This is a planet!", "Planet A", "Planet A"));
+        bodies.push(new Solar_System.Moon(bodies, 0.4, 0.05, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(50, 5, 0), new Solar_System.Vector(225, 225, 225), "This is a moon!", "Moon", "Earth"));
         canvas.addEventListener("click", showDesc);
         slider.addEventListener("input", changeTime);
-        window.setInterval(update, 1);
+        window.setInterval(update, 30);
     }
     function changeTime(_event) {
         console.log("changeTime");
@@ -45,9 +52,9 @@ var Solar_System;
     function update() {
         // console.log("Update");
         Solar_System.crc2.fillRect(0, 0, Solar_System.crc2.canvas.width, Solar_System.crc2.canvas.height); // Clear Canvas
-        Solar_System.crc2.fillStyle = "black";
         for (const body of bodies) {
             if (body instanceof Solar_System.Planet) {
+                Solar_System.crc2.translate(0, 0);
                 body.move(time);
             }
             body.draw();
