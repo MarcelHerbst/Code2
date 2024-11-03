@@ -2,55 +2,74 @@
 var Solar_System;
 (function (Solar_System) {
     class Body {
-        constructor(_planets, _size, _speed, _pos, _distance, _color, _desc, _name) {
+        constructor(_planets, _size, _speed, _pos, _distance, _color, _angle, _desc, _name) {
             this.planets = [];
             this.size = _size;
             this.speed = _speed;
-            this.pos = _pos;
+            if (_pos) {
+                this.pos = _pos;
+            }
+            else {
+                this.pos = new Solar_System.Vector(0, 0, 0);
+            }
             this.distance = _distance;
             this.color = _color;
+            this.angle = _angle;
             this.desc = _desc;
             this.name = _name;
         }
-        move(_time) {
-            Solar_System.crc2.rotate((this.speed * _time * Math.PI) / 180);
-            // crc2.translate(this.distance.x, this.distance.y);
+        move(_time, _orbit) {
+            const offset = 10 + this.size;
+            this.angle += this.speed * (_time * 0.0116);
+            this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x - offset;
+            this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
+            if (this instanceof Moon) {
+                this.angle += this.speed * (_time * 0.00116);
+                this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x + offset;
+                this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
+            }
         }
         draw() {
-            console.log("Body Draw");
-            const bodyPath = new Path2D();
+            Solar_System.crc2.beginPath();
             Solar_System.crc2.save();
             Solar_System.crc2.translate(this.pos.x, this.pos.y);
             Solar_System.crc2.rotate((this.speed * Math.PI) / 180);
             Solar_System.crc2.translate(this.distance.x, this.distance.y);
-            bodyPath.ellipse(0, 0, 10 * this.size, 10 * this.size, 0, 0, Math.PI * 2);
+            Solar_System.crc2.arc(this.pos.x, this.pos.y, (this.size * 10), 0, Math.PI * 2);
             Solar_System.crc2.fillStyle = `rgb(${this.color.x}, ${this.color.y}, ${this.color.z})`;
-            Solar_System.crc2.strokeStyle = `rgb(${this.color.x}, ${this.color.y}, ${this.color.z})`;
-            Solar_System.crc2.fill(bodyPath);
+            Solar_System.crc2.fill();
+            Solar_System.crc2.closePath();
             Solar_System.crc2.restore();
         }
     }
     Solar_System.Body = Body;
     class Planet extends Body {
-        constructor(_planets, _size, _speed, _pos, _distance, _color, _desc, _name, _hasRing, _moons) {
-            super(_planets, _size, _speed, _pos, _distance, _color, _desc, _name);
+        constructor(_planets, _size, _speed, _pos, _distance, _color, _angle, _desc, _name, _hasRing, _moons) {
+            super(_planets, _size, _speed, _pos, _distance, _color, _angle, _desc, _name);
             this.hasRing = _hasRing;
             this.moons = _moons;
         }
-        move(_time) {
-            super.move(_time);
+        move(_time, _orbit) {
+            for (let moon of this.moons) {
+                moon.move(_time, this.pos);
+            }
+            super.move(_time, _orbit);
+        }
+        draw() {
+            for (let moon of this.moons) {
+                moon.draw();
+            }
+            super.draw();
         }
     }
     Solar_System.Planet = Planet;
     class Moon extends Body {
-        constructor(_planets, _size, _speed, _pos, _distance, _color, _desc, _name, _orbits) {
-            super(_planets, _size, _speed, _pos, _distance, _color, _desc, _name);
+        constructor(_planets, _size, _speed, _pos, _distance, _color, _angle, _desc, _name, _orbits) {
+            super(_planets, _size, _speed, _pos, _distance, _color, _angle, _desc, _name);
             this.orbits = _orbits;
         }
-        move(_time) {
-            super.move(_time);
-            Solar_System.crc2.translate(this.distance.x, this.distance.y);
-            Solar_System.crc2.rotate((this.speed * Math.PI) / 180);
+        move(_time, _orbit) {
+            super.move(_time, _orbit);
         }
     }
     Solar_System.Moon = Moon;
