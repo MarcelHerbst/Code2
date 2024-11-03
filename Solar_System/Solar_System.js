@@ -2,12 +2,12 @@
 var Solar_System;
 (function (Solar_System) {
     window.addEventListener("load", handleLoad);
-    let time = 25;
+    let time = 0;
     const planets = [
-        new Solar_System.Planet([], 0.24, 0.0479, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(25, 0, 0), new Solar_System.Vector(255, 0, 255), 0, "This is a planet!", "Mercury", false, []),
-        new Solar_System.Planet([], 0.6, 0.0350, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(50, 0, 0), new Solar_System.Vector(205, 0, 255), 0, "This is a planet!", "Venus", false, []),
-        new Solar_System.Planet([], 0.63, 0.0298, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(75, 0, 0), new Solar_System.Vector(55, 100, 255), 0, "This is a planet!", "Earth", false, [
-            new Solar_System.Moon([], 0.2, 0.0009, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Earth")
+        new Solar_System.Planet([], 0.24, 0.0479, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(20, 0, 0), new Solar_System.Vector(255, 0, 255), 0, "This is a planet!", "Mercury", false, []),
+        new Solar_System.Planet([], 0.6, 0.0350, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(40, 0, 0), new Solar_System.Vector(205, 0, 255), 0, "This is a planet!", "Venus", false, []),
+        new Solar_System.Planet([], 0.63, 0.0298, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(70, 0, 0), new Solar_System.Vector(55, 100, 255), 0, "This is a planet!", "Earth", false, [
+            new Solar_System.Moon([], 0.3, 0.9, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(5, 0, 0), new Solar_System.Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Earth")
         ]),
         new Solar_System.Planet([], 0.33, 0.0241, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(100, 0, 0), new Solar_System.Vector(255, 0, 55), 0, "This is a planet!", "Mars", false, []),
         new Solar_System.Planet([], 1.9, 0.0131, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(150, 0, 0), new Solar_System.Vector(25, 25, 255), 0, "This is a planet!", "Jupiter", false, []),
