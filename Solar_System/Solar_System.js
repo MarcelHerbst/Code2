@@ -9,9 +9,14 @@ var Solar_System;
         new Solar_System.Planet([], 0.63, 0.0298, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(70, 0, 0), new Solar_System.Vector(55, 100, 255), 0, "This is a planet!", "Earth", false, [
             new Solar_System.Moon([], 0.3, 0.9, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(5, 0, 0), new Solar_System.Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Earth")
         ]),
-        new Solar_System.Planet([], 0.33, 0.0241, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(100, 0, 0), new Solar_System.Vector(255, 0, 55), 0, "This is a planet!", "Mars", false, []),
+        new Solar_System.Planet([], 0.33, 0.0241, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(100, 0, 0), new Solar_System.Vector(255, 0, 55), 0, "This is a planet!", "Mars", false, [
+            new Solar_System.Moon([], 0.1, 0.5, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(2, 0, 0), new Solar_System.Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Mars"),
+            new Solar_System.Moon([], 0.1, 0.7, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(3, 0, 0), new Solar_System.Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Mars")
+        ]),
         new Solar_System.Planet([], 1.9, 0.0131, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(150, 0, 0), new Solar_System.Vector(25, 25, 255), 0, "This is a planet!", "Jupiter", false, []),
-        new Solar_System.Planet([], 1.8, 0.0097, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(200, 0, 0), new Solar_System.Vector(25, 190, 25), 0, "This is a planet!", "Saturn", false, []),
+        new Solar_System.Planet([], 1.8, 0.0097, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(200, 0, 0), new Solar_System.Vector(25, 190, 25), 0, "This is a planet!", "Saturn", false, [
+        // There's probably a smart way to add 146 Moons to an array.
+        ]),
         new Solar_System.Planet([], 0.9, 0.0068, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(250, 0, 0), new Solar_System.Vector(105, 25, 255), 0, "This is a planet!", "Uranus", false, []),
         new Solar_System.Planet([], 0.85, 0.0054, new Solar_System.Vector(0, 0, 0), new Solar_System.Vector(300, 0, 0), new Solar_System.Vector(0, 0, 255), 0, "This is a planet!", "Neptune", false, [])
     ];

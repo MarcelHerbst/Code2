@@ -14,19 +14,19 @@ var Solar_System;
             }
             this.distance = _distance;
             this.color = _color;
-            this.angle = _angle;
+            this.angle = Math.random() * Math.PI * 2;
             this.desc = _desc;
             this.name = _name;
         }
         move(_time, _orbit) {
-            const offset = 10 + this.size;
+            const offset = 10;
             this.angle += this.speed * (_time * 0.0116);
             this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x - offset;
             this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
             if (this instanceof Moon) {
                 this.angle += this.speed * (_time * 0.00116);
-                this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x + offset;
-                this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
+                this.pos.x += Math.cos(this.angle) * this.distance.x + offset;
+                this.pos.y += Math.sin(this.angle) * this.distance.x;
             }
         }
         draw() {
@@ -51,7 +51,7 @@ var Solar_System;
         }
         move(_time, _orbit) {
             for (let moon of this.moons) {
-                moon.move(_time, this.pos);
+                moon.move(_time, new Solar_System.Vector(this.pos.x + (this.distance.x / 2) - (this.size), this.pos.y, 0));
             }
             super.move(_time, _orbit);
         }
