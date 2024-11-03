@@ -30,7 +30,7 @@ namespace Solar_System
 
             this.distance = _distance;
             this.color = _color;
-            this.angle = _angle;
+            this.angle = Math.random() * Math.PI *2;
             this.desc = _desc;
             this.name = _name;
 
@@ -40,15 +40,15 @@ namespace Solar_System
 
         move(_time: number, _orbit: Vector): void
         {
-            const offset: number = 10 + this.size;
+            const offset: number = 10;
             this.angle += this.speed * (_time * 0.0116);
             this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x - offset;
             this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
             if (this instanceof Moon)
             {
                 this.angle += this.speed * (_time * 0.00116);
-                this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x + offset;
-                this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
+                this.pos.x += Math.cos(this.angle) * this.distance.x + offset;
+                this.pos.y += Math.sin(this.angle) * this.distance.x;
             }
         }
 
@@ -85,7 +85,7 @@ namespace Solar_System
 
             for (let moon of this.moons)
             {
-                moon.move(_time, this.pos);
+                moon.move(_time, new Vector(this.pos.x + (this.distance.x/2) - (this.size), this.pos.y, 0));
             }
             super.move(_time, _orbit);
 

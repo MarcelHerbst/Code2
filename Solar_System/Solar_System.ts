@@ -5,17 +5,23 @@ namespace Solar_System
     window.addEventListener("load", handleLoad);
     let time: number = 0;
 
-    
+
     const planets: Body[] = [
         new Planet([], 0.24, 0.0479, new Vector(0, 0, 0), new Vector(20, 0, 0), new Vector(255, 0, 255), 0, "This is a planet!", "Mercury", false, []),
         new Planet([], 0.6, 0.0350, new Vector(0, 0, 0), new Vector(40, 0, 0), new Vector(205, 0, 255), 0, "This is a planet!", "Venus", false, []),
         new Planet([], 0.63, 0.0298, new Vector(0, 0, 0), new Vector(70, 0, 0), new Vector(55, 100, 255), 0, "This is a planet!", "Earth", false,
             [
-                new Moon([], 0.3, 0.9,  new Vector(0, 0, 0), new Vector(5, 0, 0), new Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Earth")
+                new Moon([], 0.3, 0.9, new Vector(0, 0, 0), new Vector(5, 0, 0), new Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Earth")
             ]),
-        new Planet([], 0.33, 0.0241, new Vector(0, 0, 0), new Vector(100, 0, 0), new Vector(255, 0, 55), 0, "This is a planet!", "Mars", false, []),
+        new Planet([], 0.33, 0.0241, new Vector(0, 0, 0), new Vector(100, 0, 0), new Vector(255, 0, 55), 0, "This is a planet!", "Mars", false,
+            [
+                new Moon([], 0.1, 0.5, new Vector(0, 0, 0), new Vector(2, 0, 0), new Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Mars"),
+                new Moon([], 0.1, 0.7, new Vector(0, 0, 0), new Vector(3, 0, 0), new Vector(225, 225, 225), 0, "This is a moon!", "Moon", "Mars")
+        ]),
         new Planet([], 1.9, 0.0131, new Vector(0, 0, 0), new Vector(150, 0, 0), new Vector(25, 25, 255), 0, "This is a planet!", "Jupiter", false, []),
-        new Planet([], 1.8, 0.0097, new Vector(0, 0, 0), new Vector(200, 0, 0), new Vector(25, 190, 25), 0, "This is a planet!", "Saturn", false, []),
+        new Planet([], 1.8, 0.0097, new Vector(0, 0, 0), new Vector(200, 0, 0), new Vector(25, 190, 25), 0, "This is a planet!", "Saturn", false, [
+            // There's probably a smart way to add 146 Moons to an array.
+        ]),
         new Planet([], 0.9, 0.0068, new Vector(0, 0, 0), new Vector(250, 0, 0), new Vector(105, 25, 255), 0, "This is a planet!", "Uranus", false, []),
         new Planet([], 0.85, 0.0054, new Vector(0, 0, 0), new Vector(300, 0, 0), new Vector(0, 0, 255), 0, "This is a planet!", "Neptune", false, [])
     ];
@@ -95,10 +101,10 @@ namespace Solar_System
         crc2.translate(crc2.canvas.width / 2, crc2.canvas.height / 2);
 
         for (const planet of planets)
-            {
-                planet.move(time, bodies[0].pos);
-                planet.draw();
-            }
+        {
+            planet.move(time, bodies[0].pos);
+            planet.draw();
+        }
 
         for (const body of bodies)
         {
