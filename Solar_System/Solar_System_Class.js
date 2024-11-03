@@ -20,7 +20,7 @@ var Solar_System;
         }
         move(_time, _orbit) {
             const offset = 10;
-            this.angle += this.speed * (_time * 0.0116);
+            this.angle += this.speed * (_time * 0.00116);
             this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x - offset;
             this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
             if (this instanceof Moon) {
