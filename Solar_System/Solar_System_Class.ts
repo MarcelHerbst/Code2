@@ -9,41 +9,55 @@ namespace Solar_System
         public pos: Vector;
         public distance: Vector;
         public color: Vector;
+        public angle: number;
         public desc?: string;
         public name?: string;
 
-        constructor(_planets: Body[], _size: number, _speed: number, _pos: Vector, _distance: Vector, _color: Vector, _desc?: string, _name?: string)
+        constructor(_planets: Body[], _size: number, _speed: number, _pos: Vector, _distance: Vector, _color: Vector, _angle: number, _desc?: string, _name?: string)
         {
 
             this.planets = [];
             this.size = _size;
             this.speed = _speed;
-            this.pos = _pos;
+
+            if (_pos)
+            {
+                this.pos = _pos.copy();
+            }
+            else
+            {
+                this.pos = new Vector(0, 0, 0);
+            }
+
             this.distance = _distance;
             this.color = _color;
+            this.angle = Math.random() * Math.PI * 2;
             this.desc = _desc;
             this.name = _name;
+
+
+
         }
 
-        move(_time: number): void
+        move(_time: number, _orbit: Vector): void
         {
-            crc2.rotate((this.speed * _time * Math.PI) / 180);
-            // crc2.translate(this.distance.x, this.distance.y);
-            
+            this.angle += this.speed * (_time * 0.00116) ;
+            this.pos.x = _orbit.x + Math.cos(this.angle) * this.distance.x;
+            this.pos.y = _orbit.y + Math.sin(this.angle) * this.distance.x;
         }
 
         draw(): void
         {
-            console.log("Body Draw")
-            const bodyPath: Path2D = new Path2D();
+
+            crc2.beginPath();
             crc2.save();
             crc2.translate(this.pos.x, this.pos.y);
             crc2.rotate((this.speed * Math.PI) / 180);
             crc2.translate(this.distance.x, this.distance.y);
-            bodyPath.ellipse(0, 0, 10 * this.size, 10 * this.size, 0, 0, Math.PI * 2);
+            crc2.arc(this.pos.x, this.pos.y, (this.size * 10), 0, Math.PI * 2);
             crc2.fillStyle = `rgb(${this.color.x}, ${this.color.y}, ${this.color.z})`;
-            crc2.strokeStyle = `rgb(${this.color.x}, ${this.color.y}, ${this.color.z})`;
-            crc2.fill(bodyPath);
+            crc2.fill();
+            crc2.closePath();
             crc2.restore();
         }
     }
@@ -53,15 +67,29 @@ namespace Solar_System
         public hasRing: boolean;
         public moons: Body[];
 
-        constructor(_planets: Body[], _size: number, _speed: number, _pos: Vector, _distance: Vector, _color: Vector, _desc: string, _name: string, _hasRing: boolean, _moons: Body[])
+        constructor(_planets: Body[], _size: number, _speed: number, _pos: Vector, _distance: Vector, _color: Vector, _angle: number, _desc: string, _name: string, _hasRing: boolean, _moons: Body[])
         {
-            super(_planets, _size, _speed, _pos, _distance, _color, _desc, _name);
+            super(_planets, _size, _speed, _pos, _distance, _color, _angle, _desc, _name);
             this.hasRing = _hasRing;
             this.moons = _moons;
         }
 
-        move(_time: number): void{
-            super.move(_time);
+        move(_time: number, _orbit: Vector): void
+        {
+            
+            for (let moon of this.moons) {
+                moon.move(_time, this.pos);
+            }
+            super.move(_time, _orbit);
+
+        }
+
+        draw(): void
+        {
+            for (let moon of this.moons) {
+                moon.draw();
+            }
+            super.draw();
         }
     }
 
@@ -71,16 +99,15 @@ namespace Solar_System
     {
         public orbits: string;
 
-        constructor(_planets: Body[], _size: number, _speed: number, _pos: Vector, _distance: Vector, _color: Vector, _desc: string, _name: string, _orbits: string)
+        constructor(_planets: Body[], _size: number, _speed: number, _pos: Vector, _distance: Vector, _color: Vector, _angle: number, _desc: string, _name: string, _orbits: string)
         {
-            super(_planets, _size, _speed, _pos, _distance, _color, _desc, _name);
+            super(_planets, _size, _speed, _pos, _distance, _color, _angle, _desc, _name);
             this.orbits = _orbits;
         }
 
-        move(_time: number): void{
-            super.move(_time);
-            crc2.translate(this.distance.x, this.distance.y);
-            crc2.rotate((this.speed * Math.PI) / 180);
+        move(_time: number, _orbit: Vector): void
+        {
+            super.move(_time, _orbit);
         }
 
 
